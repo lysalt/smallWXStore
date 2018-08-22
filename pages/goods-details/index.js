@@ -86,7 +86,7 @@ Page({
       }
     })
     this.reputation(e.id);
-    this.getKanjiaInfo(e.id);
+    //this.getKanjiaInfo(e.id);
   },
   goShopCar: function () {
     wx.reLaunch({
@@ -361,7 +361,6 @@ Page({
     shopCarMap.goodsId = this.data.goodsDetail.basicInfo.id;
     shopCarMap.pic = this.data.goodsDetail.basicInfo.pic;
     shopCarMap.name = this.data.goodsDetail.basicInfo.name;
-    // shopCarMap.label=this.data.goodsDetail.basicInfo.id; 规格尺寸 
     shopCarMap.propertyChildIds = this.data.propertyChildIds;
     shopCarMap.label = this.data.propertyChildNames;
     shopCarMap.price = this.data.selectSizePrice;
@@ -414,16 +413,17 @@ Page({
   },
   reputation: function (goodsId) {
     var that = this;
+    console.log('get reputation');
     wx.request({
       url:'https://fzd.xcloudtech.com:8989/mall/reputation',
       data: {
         GoodsId: goodsId
       },
       success: function (res) {
-        if (res.data.data && res.data.data.length > 0) {
-          //console.log(JSON.stringify(res.data.data));
+        console.log(res.data);
+        if (res.data) {
           that.setData({
-            reputation: res.data.data
+            reputation: res.data
           });
         }
       }

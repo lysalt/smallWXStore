@@ -105,16 +105,6 @@ Page({
       },
       method:'POST',
       success: function(res) {
-        // if (res.data.code != 0) {
-        //   // 登录错误 
-        //   wx.hideLoading();
-        //   wx.showModal({
-        //     title: '失败',
-        //     content: res.data.msg,
-        //     showCancel:false
-        //   })
-        //   return;
-        // }
         if (res.header.err) {
           wx.showModal({
             title: '出错提示',
@@ -196,11 +186,9 @@ Page({
       // 初始化原数据
       wx.showLoading();
       wx.request({
-        //url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/shipping-address/detail',
         url:'https://fzd.xcloudtech.com:8989/mall/oneShipAddress',
         data: {
           ShipId:id
-          // id: id
         },
         success: function (res) {
           wx.hideLoading();
@@ -262,7 +250,6 @@ Page({
       success: function (res) {
         if (res.confirm) {
           wx.request({
-            // url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/shipping-address/delete',
             url:'https://fzd.xcloudtech.com:8989/mall/delShipAddress',
             data: {
               ShipId:id

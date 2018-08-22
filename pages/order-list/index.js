@@ -61,7 +61,7 @@ Page({
     var needScore = e.currentTarget.dataset.score;
     wx.request({
       // url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/amount',
-      url:'https://fzd.xcloudtech.com:8989/mall/userAmount',
+      url:'https://fzd.xcloudtech.com:8989/mall/userDetail',
       data: {
         // token: wx.getStorageSync('token')
         UID:wx.getStorageSync('uid')
@@ -88,7 +88,7 @@ Page({
           // 直接使用余额支付
           wx.request({
             // url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/pay',
-            url:'https://fzd.xcloudtech.com:8989/mall/orderPay',
+            url:'https://fzd.xcloudtech.com:8989/mall/balancePay',
             method:'POST',
             header: {
               'content-type': 'application/x-www-form-urlencoded'
@@ -100,6 +100,13 @@ Page({
               // orderId: orderId
             },
             success: function (res2) {
+              if (res2.header.err) {
+                wx.showModal({
+                  title: '出错提示',
+                  content: decodeURI(res2.header.err),
+                })
+                return;
+              }
               that.onShow();
             }
           })

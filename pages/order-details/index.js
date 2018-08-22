@@ -14,27 +14,14 @@ Page({
     },
     onShow : function () {
       var that = this;
-      //console.log(that.data.orderId);
       wx.request({
-        // url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/detail',
         url:'https://fzd.xcloudtech.com:8989/mall/orderDetail',
         data: {
           OrderId:that.data.orderId
         },
         success: (res) => {
-          //console.log(res.data);
           wx.hideLoading();
-          // if (res.data.code != 0) {
-          //   wx.showModal({
-          //     title: '错误',
-          //     content: res.data.msg,
-          //     showCancel: false
-          //   })
-          //   return;
-          // }
           if (res.header.err) {
-            // 去注册
-            // that.registerUser();
             wx.showModal({
               title: '出错提示',
               content: decodeURI(res.header.err),
@@ -74,25 +61,32 @@ Page({
             if (res.confirm) {
               wx.showLoading();
               wx.request({
-                url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/delivery',
+                // url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/delivery',
+                url:'https://fzd.xcloudtech.com:8989/mall/recvGoods',
                 data: {
-                  token: wx.getStorageSync('token'),
-                  orderId: orderId
+                  UID: wx.getStorageSync('uid'),
+                  OrderId: orderId
                 },
+                method:'POST',
                 success: (res) => {
-                  if (res.data.code == 0) {
-                    that.onShow();
-                    // 模板消息，提醒用户进行评价
-                    let postJsonString = {};
-                    postJsonString.keyword1 = { value: that.data.orderDetail.orderInfo.orderNumber, color: '#173177' }
-                    let keywords2 = '您已确认收货，期待您的再次光临！';
-                    if (app.globalData.order_reputation_score) {
-                      keywords2 += '立即好评，系统赠送您' + app.globalData.order_reputation_score +'积分奖励。';
-                    }
-                    postJsonString.keyword2 = { value: keywords2, color: '#173177' }
-                    app.sendTempleMsgImmediately('uJL7D8ZWZfO29Blfq34YbuKitusY6QXxJHMuhQm_lco', formId,
-                      '/pages/order-details/index?id=' + orderId, JSON.stringify(postJsonString));
+                  if (res.header.err) {
+                    wx.showModal({
+                      title: '出错提示',
+                      content: decodeURI(res.header.err)
+                    })
+                    return;
                   }
+                  that.onShow();
+                  // 模板消息，提醒用户进行评价
+                  let postJsonString = {};
+                  postJsonString.keyword1 = { value: that.data.orderDetail._id, color: '#173177' }
+                  let keywords2 = '您已确认收货，期待您的再次光临！';
+                  if (app.globalData.order_reputation_score) {
+                    keywords2 += '立即好评，系统赠送您' + app.globalData.order_reputation_score +'积分奖励。';
+                  }
+                  postJsonString.keyword2 = { value: keywords2, color: '#173177' }
+                  // app.sendTempleMsgImmediately('uJL7D8ZWZfO29Blfq34YbuKitusY6QXxJHMuhQm_lco', formId,
+                  //   '/pages/order-details/index?id=' + orderId, JSON.stringify(postJsonString));
                 }
               })
             }
@@ -102,46 +96,45 @@ Page({
     submitReputation: function (e) {
       let that = this;
       let formId = e.detail.formId;
-      let postJsonString = {};
-      postJsonString.token = wx.getStorageSync('token');
-      postJsonString.orderId = this.data.orderId;
-      let reputations = [];
-      let i = 0;
-      while (e.detail.value["orderGoodsId" + i]) {
-        let orderGoodsId = e.detail.value["orderGoodsId" + i];
-        let goodReputation = e.detail.value["goodReputation" + i];
-        let goodReputationRemark = e.detail.value["goodReputationRemark" + i];
-
-        let reputations_json = {};
-        reputations_json.id = orderGoodsId;
-        reputations_json.reputation = goodReputation;
-        reputations_json.remark = goodReputationRemark;
-
-        reputations.push(reputations_json);
-        i++;
-      }
-      postJsonString.reputations = reputations;
       wx.showLoading();
+      var goodsIdList = [];
+      var goodsList = that.data.orderDetail.GoodsList;
+      for (var i = 0; i < goodsList.length; i++) {
+        goodsIdList.push(goodsList[i].goodsId);
+      }
       wx.request({
-        url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/reputation',
+        url:'https://fzd.xcloudtech.com:8989/mall/reputation',
         data: {
-          postJsonString: postJsonString
+          UID:wx.getStorageSync('uid'),
+          GoodsIdList:goodsIdList,
+          OrderId:this.data.orderId,
+          Reputation:e.detail.value["goodReputation"],
+          ReputationRemark:e.detail.value["goodReputationRemark"]
         },
+        header: {
+          'content-type': 'application/json'
+        },
+        method:'POST',
         success: (res) => {
           wx.hideLoading();
-          if (res.data.code == 0) {
-            that.onShow();
-            // 模板消息，通知用户已评价
-            let postJsonString = {};
-            postJsonString.keyword1 = { value: that.data.orderDetail.orderInfo.orderNumber, color: '#173177' }
-            let keywords2 = '感谢您的评价，期待您的再次光临！';
-            if (app.globalData.order_reputation_score) {
-              keywords2 += app.globalData.order_reputation_score + '积分奖励已发放至您的账户。';
-            }
-            postJsonString.keyword2 = { value: keywords2, color: '#173177' }
-            app.sendTempleMsgImmediately('uJL7D8ZWZfO29Blfq34YbuKitusY6QXxJHMuhQm_lco', formId,
-              '/pages/order-details/index?id=' + that.data.orderId, JSON.stringify(postJsonString));
+          if (res.header.err) {
+            wx.showModal({
+              title: '出错提示',
+              content: decodeURI(res.header.err),
+            })
+            return;
           }
+          that.onShow();
+          // 模板消息，通知用户已评价
+          let postJsonString = {};
+          postJsonString.keyword1 = { value: that.data.orderDetail._id, color: '#173177' }
+          let keywords2 = '感谢您的评价，期待您的再次光临！';
+          if (app.globalData.order_reputation_score) {
+            keywords2 += app.globalData.order_reputation_score + '积分奖励已发放至您的账户。';
+          }
+          postJsonString.keyword2 = { value: keywords2, color: '#173177' }
+          // app.sendTempleMsgImmediately('uJL7D8ZWZfO29Blfq34YbuKitusY6QXxJHMuhQm_lco', formId,
+          //   '/pages/order-details/index?id=' + that.data.orderId, JSON.stringify(postJsonString));
         }
       })
     }
