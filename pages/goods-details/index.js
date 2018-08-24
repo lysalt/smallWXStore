@@ -420,10 +420,9 @@ Page({
         GoodsId: goodsId
       },
       success: function (res) {
-        console.log(res.data);
-        if (res.data) {
+        if (res.data.data) {
           that.setData({
-            reputation: res.data
+            reputationList:res.data.data
           });
         }
       }

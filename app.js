@@ -30,7 +30,7 @@ App({
         UID: uid
       },
       success: function (res) {
-        console.log(res.data);
+        //console.log(res.data);
         if (res.header.err) {
           console.log(decodeURI(res.header.err));
           wx.removeStorageSync('token')

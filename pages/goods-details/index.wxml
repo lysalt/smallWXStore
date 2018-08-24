@@ -43,12 +43,12 @@
             <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
          </view>
     </view>
-    <view class="goods-des-info" style="margin-top:35rpx;" wx:if="{{reputation}}">
-        <view class="label-title" style="border-bottom:1px solid #eee;">大家评价<text style="color:red">（{{reputation.length}}）</text></view>
-        <view class="goods-text" style="margin-top:15rpx;" wx:for="{{reputation}}" wx:key="id">
+    <view class="goods-des-info" style="margin-top:35rpx;" wx:if="{{reputationList}}">
+        <view class="label-title" style="border-bottom:1px solid #eee;">大家评价<text style="color:red">（{{reputationList.length}}）</text></view>
+        <view class="goods-text" style="margin-top:15rpx;" wx:for="{{reputationList}}" wx:key="id">
           <view style="width:100rpx;float:left;">
             <image style="width: 100rpx; height: 100rpx;" src="{{item.ImgID}}"></image>
-            <view style="text-align:center;width:100rpx;">{{item.Reputation}}</view>
+            <view style="text-align:center;width:100rpx;">{{item.ReputationStr}}</view>
           </view>
           <view style="width:550rpx;float:left;margin-left:35rpx;border-bottom:1px solid #eee;">
             <view>{{item.ReputationRemark}}</view>

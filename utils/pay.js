@@ -24,7 +24,7 @@ function wxpay(app, money, orderId, redirectUrl) {
         })
         return;
       }
-
+      var bno = res.data.BNO;
       wx.requestPayment({
         timeStamp:res.data.timeStamp,
         nonceStr:res.data.nonceStr,
@@ -35,9 +35,21 @@ function wxpay(app, money, orderId, redirectUrl) {
           wx.showToast({title: '支付失败:' + aaa})
         },
         success:function () {
-          wx.showToast({title: '支付成功'})
-          wx.redirectTo({//支持成功时告诉服务端
-            url: redirectUrl
+          wx.request({
+            url:'https://fzd.xcloudtech.com:8989/mall/payResult',
+            data: {
+              UID: wx.getStorageSync('uid'),
+              BNO: bno,
+              Ret: 1
+            },
+            method:'POST',
+            success:function(res) {
+              wx.showToast({title: '支付成功'})
+              wx.redirectTo({//支持成功时告诉服务端
+                url: redirectUrl
+              });              
+            }
+
           });
         }
       })

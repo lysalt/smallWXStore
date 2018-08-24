@@ -102,15 +102,13 @@ Page({
     }
     wx.login({
       success: function (res) {
-        console.log(res);
         var userInfo = wx.getStorageSync('userInfo');
         var systemInfo = wx.getSystemInfoSync();
-        console.log(systemInfo);
         wx.request({
           url: 'https://fzd.xcloudtech.com:8989/mall/wxlogin',
           data: {
             Code: res.code,
-            Name:userInfo.nickname,
+            Name:userInfo.nickName,
             ImgUrl:userInfo.avatarUrl,
             Model: systemInfo.model,
             SysVer: systemInfo.system,
@@ -121,7 +119,7 @@ Page({
           },
           method:'POST',
           success: function (res) {
-            console.log(res.data);
+            // console.log(res.data);
             if (res.header.err) {
               // 去注册
               // that.registerUser();
@@ -134,7 +132,10 @@ Page({
             wx.setStorageSync('token', res.data.Token)
             wx.setStorageSync('uid', res.data.UID)
             // 回到原来的地方放
-            wx.navigateBack();
+            // wx.navigateBack();
+            wx.navigateTo({
+              url: "/pages/start/start"
+            })
           }
         })
       }
