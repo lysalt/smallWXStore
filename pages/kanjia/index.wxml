@@ -1,6 +1,6 @@
 <import src="../../wxParse/wxParse.wxml" />
 <view class="container"> 
-   <view class="swiper-container" wx:if="{{!goodsDetail.basicInfo.videoId}}">
+   <view class="swiper-container" wx:if="{{!goodsDetail.videoId}}">
         <swiper class="swiper_box" 
                     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
             <block wx:for="{{goodsDetail.pics}}" wx:key="id">
@@ -15,11 +15,11 @@
             </block>  
         </view>  
    </view>
-   <view class="swiper-container" wx:if="{{goodsDetail.basicInfo.videoId}}">
+   <view class="swiper-container" wx:if="{{goodsDetail.videoId}}">
         <video src="{{videoMp4Src}}" autoplay="true" loop="true" style='width:100%'></video>
    </view>
    <view class="goods-info">
-        <view class="goods-title">{{goodsDetail.basicInfo.name}}</view>
+        <view class="goods-title">{{goodsDetail.name}}</view>
         <view class="goods-price" style="padding-left:35rpx;">当前价格: ¥ {{kanjiaInfo.kanjiaInfo.curPrice}} , 底价 ¥ {{kanjiaInfo.kanjiaInfo.minPrice}} </view>
         <view class="goods-price" style="color:#999;font-size:24rpx;padding-left:10rpx;"> (转发帮 {{kanjiaInfo.joiner.nick}} 砍价) </view>
     </view>

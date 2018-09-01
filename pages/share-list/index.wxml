@@ -1,0 +1,28 @@
+<view class="container">
+    <view class="no-order" hidden="{{orderList ? true : false}}">
+        <image src="/images/no-order.png" class="no-order-img"></image>
+        <view class="text">暂无分享订单</view>
+    </view>
+    <view class="order-list" hidden="{{orderList ? false : true}}">
+        <view class="a-order" wx:for-items="{{orderList}}" wx:key="{{index}}">
+            <view class="order-date">
+                <view class="date-box">下单时间：{{item.Time}}</view>
+                <view class="status {{(item.Status==-1 || item.Status==4) ? '':'red'}}">{{item.statusStr}}</view>
+            </view>
+            <view class="goods-info" bindtap="orderDetail" data-id="{{item._id}}">
+                <view class="goods-des">
+                   <view>订单号:{{item._id}} </view>
+                   <view wx:if="{{item.Remark && item.Remark != ''}}">备注： {{item.Remark}}</view>
+                </view>
+            </view>
+            <view >
+                <scroll-view class="goods-img-container" scroll-x="true">
+                    <view class="img-box" wx:for-items="{{item.GoodsMapList}}" wx:key="{{index}}">
+                        <image src="{{item}}" class="goods-img"></image>
+                    </view>
+                </scroll-view>
+            </view>
+        </view>
+
+    </view>
+</view>

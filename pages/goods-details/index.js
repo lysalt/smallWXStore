@@ -54,9 +54,9 @@ Page({
       } 
     })
     wx.request({
-      url: 'https://fzd.xcloudtech.com:8989/mall/goodsDetail',
+      url: 'https://fzd.xcloudtech.com:8989/mall/productDetail',
       data: {
-        GoodsId:e.id
+        productId:e.id
       },
       success: function(res) {
         var selectSizeTemp = "";
@@ -67,20 +67,20 @@ Page({
           that.setData({
             hasMoreSelect:true,
             selectSize:that.data.selectSize + selectSizeTemp,
-            selectSizePrice:res.data.basicInfo.minPrice,
-            totalScoreToPay: res.data.basicInfo.minScore
+            selectSizePrice:res.data.minPrice,
+            totalScoreToPay: res.data.minScore
           });
         }
         that.data.goodsDetail = res.data;
-        if (res.data.basicInfo.videoId) {
-          that.getVideoSrc(res.data.basicInfo.videoId);
+        if (res.data.videoId) {
+          that.getVideoSrc(res.data.videoId);
         }
         that.setData({
           goodsDetail:res.data,
-          selectSizePrice:res.data.basicInfo.minPrice,
-          totalScoreToPay: res.data.basicInfo.minScore,
-          buyNumMax:res.data.basicInfo.stores,
-          buyNumber:(res.data.basicInfo.stores>0) ? 1: 0
+          selectSizePrice:res.data.minPrice,
+          totalScoreToPay: res.data.minScore,
+          buyNumMax:res.data.stores,
+          buyNumber:(res.data.stores>0) ? 1: 0
         });
         WxParse.wxParse('article', 'html', res.data.content, that, 5);
       }
@@ -192,26 +192,26 @@ Page({
     if (needSelectNum == curSelectNum) {
       canSubmit = true;
     }
-    // 计算当前价格
-    if (canSubmit) {
-      wx.request({
-        url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/price',
-        data: {
-          goodsId: that.data.goodsDetail.basicInfo.id,
-          propertyChildIds:propertyChildIds
-        },
-        success: function(res) {
-          that.setData({
-            selectSizePrice:res.data.data.price,
-            totalScoreToPay: res.data.data.score,
-            propertyChildIds:propertyChildIds,
-            propertyChildNames:propertyChildNames,
-            buyNumMax:res.data.data.stores,
-            buyNumber:(res.data.data.stores>0) ? 1: 0
-          });
-        }
-      })
-    }
+    // // 计算当前价格
+    // if (canSubmit) {
+    //   wx.request({
+    //     url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/price',
+    //     data: {
+    //       goodsId: that.data.goodsDetail.id,
+    //       propertyChildIds:propertyChildIds
+    //     },
+    //     success: function(res) {
+    //       that.setData({
+    //         selectSizePrice:res.data.data.price,
+    //         totalScoreToPay: res.data.data.score,
+    //         propertyChildIds:propertyChildIds,
+    //         propertyChildNames:propertyChildNames,
+    //         buyNumMax:res.data.data.stores,
+    //         buyNumber:(res.data.data.stores>0) ? 1: 0
+    //       });
+    //     }
+    //   })
+    // }
 
     
     this.setData({
@@ -312,10 +312,9 @@ Page({
   bulidShopCarInfo: function () {
     // 加入购物车
     var shopCarMap = {};
-    shopCarMap.goodsId = this.data.goodsDetail.basicInfo.id;
-    shopCarMap.pic = this.data.goodsDetail.basicInfo.pic;
-    shopCarMap.name = this.data.goodsDetail.basicInfo.name;
-    // shopCarMap.label=this.data.goodsDetail.basicInfo.id; 规格尺寸 
+    shopCarMap.goodsId = this.data.goodsDetail._id;
+    shopCarMap.pic = this.data.goodsDetail.pic;
+    shopCarMap.name = this.data.goodsDetail.name;
     shopCarMap.propertyChildIds = this.data.propertyChildIds;
     shopCarMap.label = this.data.propertyChildNames;
     shopCarMap.price = this.data.selectSizePrice;
@@ -323,9 +322,9 @@ Page({
     shopCarMap.left = "";
     shopCarMap.active = true;
     shopCarMap.number = this.data.buyNumber;
-    shopCarMap.logisticsType = this.data.goodsDetail.basicInfo.logisticsId;
+    shopCarMap.logisticsType = this.data.goodsDetail.logisticsId;
     shopCarMap.logistics = this.data.goodsDetail.logistics;
-    shopCarMap.weight = this.data.goodsDetail.basicInfo.weight;
+    shopCarMap.weight = this.data.goodsDetail.weight;
 
     var shopCarInfo = this.data.shopCarInfo;
     if (!shopCarInfo.shopNum) {
@@ -358,9 +357,9 @@ Page({
 	 */
   buliduBuyNowInfo: function () {
     var shopCarMap = {};
-    shopCarMap.goodsId = this.data.goodsDetail.basicInfo.id;
-    shopCarMap.pic = this.data.goodsDetail.basicInfo.pic;
-    shopCarMap.name = this.data.goodsDetail.basicInfo.name;
+    shopCarMap.goodsId = this.data.goodsDetail.id;
+    shopCarMap.pic = this.data.goodsDetail.pic;
+    shopCarMap.name = this.data.goodsDetail.name;
     shopCarMap.propertyChildIds = this.data.propertyChildIds;
     shopCarMap.label = this.data.propertyChildNames;
     shopCarMap.price = this.data.selectSizePrice;
@@ -368,9 +367,9 @@ Page({
     shopCarMap.left = "";
     shopCarMap.active = true;
     shopCarMap.number = this.data.buyNumber;
-    shopCarMap.logisticsType = this.data.goodsDetail.basicInfo.logisticsId;
+    shopCarMap.logisticsType = this.data.goodsDetail.logisticsId;
     shopCarMap.logistics = this.data.goodsDetail.logistics;
-    shopCarMap.weight = this.data.goodsDetail.basicInfo.weight;
+    shopCarMap.weight = this.data.goodsDetail.weight;
 
     var buyNowInfo = {};
     if (!buyNowInfo.shopNum) {
@@ -401,8 +400,8 @@ Page({
   },   
   onShareAppMessage: function () {
     return {
-      title: this.data.goodsDetail.basicInfo.name,
-      path: '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id + '&inviter_id=' + wx.getStorageSync('uid'),
+      title: this.data.goodsDetail.name,
+      path: '/pages/goods-details/index?id=' + this.data.goodsDetail._id + '&inviter_id=' + wx.getStorageSync('uid'),
       success: function (res) {
         // 转发成功
       },

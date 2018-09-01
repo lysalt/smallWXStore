@@ -31,8 +31,8 @@ Page({
       },
       success: function(res) {
         that.data.goodsDetail = res.data.data;
-        if (res.data.data.basicInfo.videoId) {
-          that.getVideoSrc(res.data.data.basicInfo.videoId);
+        if (res.data.data.videoId) {
+          that.getVideoSrc(res.data.data.videoId);
         }
         that.setData({
           goodsDetail:res.data.data

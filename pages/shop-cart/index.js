@@ -214,7 +214,7 @@ Page({
           GoodsId:carShopBean.goodsId
         },
         success: function (res) {
-          carShopBeanStores = res.data.basicInfo.stores;
+          carShopBeanStores = res.data.stores;
           console.log(' currnet good id and stores is :',carShopBean.goodsId, carShopBeanStores)
           if (list[parseInt(index)].number < carShopBeanStores) {
             list[parseInt(index)].number++;
@@ -316,27 +316,27 @@ Page({
               if (res.data.properties) {
                 wx.showModal({
                   title: '提示',
-                  content: res.data.basicInfo.name + ' 商品已失效，请重新购买',
+                  content: res.data.name + ' 商品已失效，请重新购买',
                   showCancel:false
                 })
                 isFail = true;
                 wx.hideLoading();
                 return;
               }
-              if (res.data.basicInfo.stores < carShopBean.number) {
+              if (res.data.stores < carShopBean.number) {
                 wx.showModal({
                   title: '提示',
-                  content: res.data.basicInfo.name + ' 库存不足，请重新购买',
+                  content: res.data.name + ' 库存不足，请重新购买',
                   showCancel:false
                 })
                 isFail = true;
                 wx.hideLoading();
                 return;
               }
-              if (res.data.basicInfo.minPrice != carShopBean.price) {
+              if (res.data.minPrice != carShopBean.price) {
                 wx.showModal({
                   title: '提示',
-                  content: res.data.basicInfo.name + ' 价格有调整，请重新购买',
+                  content: res.data.name + ' 价格有调整，请重新购买',
                   showCancel:false
                 })
                 isFail = true;

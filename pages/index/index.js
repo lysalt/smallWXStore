@@ -38,11 +38,11 @@ Page({
   },
   toDetailsTap:function(e){
     wx.navigateTo({
-      url:"/pages/goods-details/index?id="+e.currentTarget.dataset.id
+      url:"/pages/goods-details/index?id=" + e.currentTarget.dataset.id
     })
   },
   tapBanner: function(e) {
-    if (e.currentTarget.dataset.id != 0) {
+    if (e.currentTarget.dataset.id) {
       wx.navigateTo({
         url: "/pages/goods-details/index?id=" + e.currentTarget.dataset.id
       })
@@ -59,10 +59,7 @@ Page({
       title: wx.getStorageSync('mallName')
     })
     wx.request({
-      url: 'https://fzd.xcloudtech.com:8989/mall/goods',
-      data: {
-        Type: '1'
-      },
+      url: 'https://fzd.xcloudtech.com:8989/mall/banners',
       success: function(res) {
         //console.log(res);
         if (!res.data.data || res.data.data.length == 0) {
@@ -79,13 +76,10 @@ Page({
       }
     }),
     wx.request({
-      url: 'https://fzd.xcloudtech.com:8989/mall/goods',
-      data: {
-        Type: '2'
-      },
+      url: 'https://fzd.xcloudtech.com:8989/mall/categorys',
       success: function(res) {
-        //console.log(res);
-        var categories = [{id:0, Name:"全部"}];
+        console.log(res);
+        var categories = [{_id:0, cateName:"全部"}];
 
         for (var i = 0; i < res.data.data.length; i++) {
           categories.push(res.data.data[i]);
@@ -112,9 +106,8 @@ Page({
     }
     var that = this;
     wx.request({
-      url: 'https://fzd.xcloudtech.com:8989/mall/goods',
+      url: 'https://fzd.xcloudtech.com:8989/mall/products',
       data: {
-        Type:'3',
         categoryId: categoryId,
         nameLike: that.data.searchInput
       },
@@ -131,7 +124,6 @@ Page({
           return;
         }
         for(var i=0;i<res.data.data.length;i++){
-          console.log(11);
           goods.push(res.data.data[i]);
         }
         that.setData({
@@ -144,12 +136,8 @@ Page({
     return;
     var that = this;
     wx.request({
-      url: 'https://fzd.xcloudtech.com:8989/mall/goods',//coupons
-      data: {
-        Type: '4'
-      },
+      url: 'https://fzd.xcloudtech.com:8989/mall/coupons',//coupons
       success: function (res) {
-        console.log(res.data);
         if (res.data.data && res.data.data.length > 0) {
           that.setData({
             hasNoCoupons: false,
@@ -162,7 +150,6 @@ Page({
   gitCoupon : function (e) {
     var that = this;
     wx.request({
-      // url: 'https://api.it120.cc/' + app.globalData.subDomain + '/discounts/fetch',
       url:'https://fzd.xcloudtech.com:8989/mall/fetchDiscount',
       data: {
         DiscountId: e.currentTarget.dataset.id,
@@ -247,9 +234,8 @@ Page({
   getNotice: function () {
     var that = this;
     wx.request({
-      url: 'https://fzd.xcloudtech.com:8989/mall/goods',
-      data: { 
-        Type:'5',
+      url: 'https://fzd.xcloudtech.com:8989/mall/notices',
+      data: {
         pageSize :5
       },
       success: function (res) {

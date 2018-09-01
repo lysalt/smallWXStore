@@ -24,9 +24,9 @@
   <view class="my-item">
     <navigator url="/pages/select-address/index" hover-class="navigator-hover">我的收货地址</navigator>
   </view>
-  <view class="my-item">
+  <!-- <view class="my-item">
     <navigator url="/pages/mycoupons/index" hover-class="navigator-hover">我的优惠券</navigator>
-  </view>
+  </view> -->
   <view wx:if="{{!userMobile}}" class="my-item" style="border:none;padding-right:150rpx;width:auto;">
     <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">绑定手机号码</button>
   </view>

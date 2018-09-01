@@ -43,7 +43,6 @@ Page({
     }
     var that = this;
     wx.request({
-      // url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/wxapp/bindMobile',
       url:'https://fzd.xcloudtech.com:8989/mall/bindMobile',
       data: {
         token: wx.getStorageSync('token'),
@@ -71,7 +70,6 @@ Page({
   getUserApiInfo: function () {
     var that = this;
     wx.request({
-      // url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/detail',
       url:'https://fzd.xcloudtech.com:8989/mall/userDetail',
       data: {
         UID: wx.getStorageSync('uid')
@@ -92,7 +90,6 @@ Page({
   scoresign: function () {
     var that = this;
     wx.request({
-      // url: 'https://api.it120.cc/' + app.globalData.subDomain + '/score/sign',
       url:'https://fzd.xcloudtech.com:8989/mall/sign',
       data: {
         UID: wx.getStorageSync('uid')
