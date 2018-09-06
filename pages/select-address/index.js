@@ -47,8 +47,7 @@ Page({
     var that = this;
     var uid = wx.getStorageSync('uid')
     wx.request({
-      // url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/user/shipping-address/list',
-      url: 'https://fzd.xcloudtech.com:8989/mall/shipAddress',
+      url:app.globalData.urlDomain + '/mall/shipAddress',
       data: {
         UID:uid
       },

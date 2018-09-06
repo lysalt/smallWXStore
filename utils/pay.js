@@ -6,8 +6,7 @@ function wxpay(app, money, orderId, redirectUrl) {
     nextAction = { type: 0, id: orderId };
   }
   wx.request({
-    // url: 'https://api.it120.cc/' + app.globalData.subDomain + '/pay/wxapp/get-pay-data',
-    url:'https://fzd.xcloudtech.com:8989/mall/wxPay',
+    url:app.globalData.urlDomain + '/mall/wxPay',
     data: {
       UID: wx.getStorageSync('uid'),
       Money:money,
@@ -36,7 +35,7 @@ function wxpay(app, money, orderId, redirectUrl) {
         },
         success:function () {
           wx.request({
-            url:'https://fzd.xcloudtech.com:8989/mall/payResult',
+            url:app.globalData.urlDomain + '/mall/payResult',
             data: {
               UID: wx.getStorageSync('uid'),
               BNO: bno,

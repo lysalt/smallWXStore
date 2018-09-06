@@ -8,7 +8,7 @@ App({
       }
     });
     wx.request({
-      url: 'https://fzd.xcloudtech.com:8989/mall/config',
+      url:app.globalData.urlDomain + '/mall/config',
       success:function(res) {
         wx.setStorageSync('mallName', res.data.MallName);
         that.globalData.order_reputation_score = res.data.Reputation;
@@ -24,7 +24,7 @@ App({
       return
     }
     wx.request({
-      url: 'https://fzd.xcloudtech.com:8989/mall/checkToken',
+      url:app.globalData.urlDomain + '/mall/checkToken',
       data: {
         Token: token,
         UID: uid
@@ -49,6 +49,7 @@ App({
   globalData:{
     userInfo:null,
     subDomain: "tz", //
+    urlDomain:'https://fzd.xcloudtech.com:8080',
     version: "3.0.1",
     shareProfile: '百款精品商品，总有一款适合您' // 首页转发的时候话术
   }

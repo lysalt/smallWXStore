@@ -59,9 +59,9 @@ Page({
       title: wx.getStorageSync('mallName')
     })
     wx.request({
-      url: 'https://fzd.xcloudtech.com:8989/mall/banners',
+      url:app.globalData.urlDomain + '/mall/banners',
       success: function(res) {
-        //console.log(res);
+        console.log(res);
         if (!res.data.data || res.data.data.length == 0) {
           wx.showModal({
             title: '提示',
@@ -76,7 +76,7 @@ Page({
       }
     }),
     wx.request({
-      url: 'https://fzd.xcloudtech.com:8989/mall/categorys',
+      url:app.globalData.urlDomain + '/mall/categorys',
       success: function(res) {
         console.log(res);
         var categories = [{_id:0, cateName:"全部"}];
@@ -106,7 +106,7 @@ Page({
     }
     var that = this;
     wx.request({
-      url: 'https://fzd.xcloudtech.com:8989/mall/products',
+      url:app.globalData.urlDomain + '/mall/products',
       data: {
         categoryId: categoryId,
         nameLike: that.data.searchInput
@@ -124,6 +124,9 @@ Page({
           return;
         }
         for(var i=0;i<res.data.data.length;i++){
+          if (res.data.data[i].pic.indexOf('http') != 0) {
+            res.data.data[i].pic = app.globalData.urlDomain + res.data.data[i].pic;
+          }
           goods.push(res.data.data[i]);
         }
         that.setData({
@@ -136,7 +139,7 @@ Page({
     return;
     var that = this;
     wx.request({
-      url: 'https://fzd.xcloudtech.com:8989/mall/coupons',//coupons
+      url:app.globalData.urlDomain + '/mall/coupons',//coupons
       success: function (res) {
         if (res.data.data && res.data.data.length > 0) {
           that.setData({
@@ -150,7 +153,7 @@ Page({
   gitCoupon : function (e) {
     var that = this;
     wx.request({
-      url:'https://fzd.xcloudtech.com:8989/mall/fetchDiscount',
+      url:app.globalData.urlDomain + '/mall/fetchDiscount',
       data: {
         DiscountId: e.currentTarget.dataset.id,
         UID: wx.getStorageSync('uid')
@@ -234,7 +237,7 @@ Page({
   getNotice: function () {
     var that = this;
     wx.request({
-      url: 'https://fzd.xcloudtech.com:8989/mall/notices',
+      url:app.globalData.urlDomain + '/mall/notices',
       data: {
         pageSize :5
       },

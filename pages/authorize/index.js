@@ -79,7 +79,7 @@ Page({
     let uid = wx.getStorageSync('uid');
     if (token) {
       wx.request({
-        url: 'https://fzd.xcloudtech.com:8989/mall/checkToken',
+        url:app.globalData.urlDomain + '/mall/checkToken',
         data: {
           Token: token,
           UID:uid
@@ -105,7 +105,7 @@ Page({
         var userInfo = wx.getStorageSync('userInfo');
         var systemInfo = wx.getSystemInfoSync();
         wx.request({
-          url: 'https://fzd.xcloudtech.com:8989/mall/wxlogin',
+          url:app.globalData.urlDomain + '/mall/wxlogin',
           data: {
             Code: res.code,
             Name:userInfo.nickName,

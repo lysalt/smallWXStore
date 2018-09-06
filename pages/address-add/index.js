@@ -86,8 +86,7 @@ Page({
       apiAddid = 0;
     }
     wx.request({
-      //url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/shipping-address/' + apiAddoRuPDATE,
-      url: 'https://fzd.xcloudtech.com:8989/mall/shipAddress',
+      url:app.globalData.urlDomain + '/mall/shipAddress',
       data: {
         UID:wx.getStorageSync('uid'),
         ShipId:apiAddid,
@@ -186,7 +185,7 @@ Page({
       // 初始化原数据
       wx.showLoading();
       wx.request({
-        url:'https://fzd.xcloudtech.com:8989/mall/oneShipAddress',
+        url:app.globalData.urlDomain + '/mall/oneShipAddress',
         data: {
           ShipId:id
         },
@@ -250,7 +249,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           wx.request({
-            url:'https://fzd.xcloudtech.com:8989/mall/delShipAddress',
+            url:app.globalData.urlDomain + '/mall/delShipAddress',
             data: {
               ShipId:id
             },

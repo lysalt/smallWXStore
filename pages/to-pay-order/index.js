@@ -128,8 +128,7 @@ Page({
     }
 
     wx.request({
-      // url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/order/create',
-      url: 'https://fzd.xcloudtech.com:8989/mall/createOrder',
+      url:app.globalData.urlDomain + '/mall/createOrder',
       method:'POST',
       header: {
         'content-type': 'application/json'
@@ -187,8 +186,7 @@ Page({
   initShippingAddress: function () {
     var that = this;
     wx.request({
-      //url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/user/shipping-address/default',
-      url: 'https://fzd.xcloudtech.com:8989/mall/shipAddress',
+      url:app.globalData.urlDomain + '/mall/shipAddress',
       data: {
         // token: wx.getStorageSync('token'),
         UID:wx.getStorageSync('uid')

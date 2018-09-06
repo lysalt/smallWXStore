@@ -70,7 +70,7 @@ Page({
     postData.Status = that.data.currentType;
     this.getOrderStatistics();
     wx.request({
-      url:'https://fzd.xcloudtech.com:8989/mall/shareInfo',
+      url:app.globalData.urlDomain + '/mall/shareInfo',
       data: postData,
       success: (res) => {
         wx.hideLoading();

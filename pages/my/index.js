@@ -43,7 +43,7 @@ Page({
     }
     var that = this;
     wx.request({
-      url:'https://fzd.xcloudtech.com:8989/mall/bindMobile',
+      url:app.globalData.urlDomain + '/mall/bindMobile',
       data: {
         token: wx.getStorageSync('token'),
         encryptedData: e.detail.encryptedData,
@@ -70,7 +70,7 @@ Page({
   getUserApiInfo: function () {
     var that = this;
     wx.request({
-      url:'https://fzd.xcloudtech.com:8989/mall/userDetail',
+      url:app.globalData.urlDomain + '/mall/userDetail',
       data: {
         UID: wx.getStorageSync('uid')
       },
@@ -90,7 +90,7 @@ Page({
   scoresign: function () {
     var that = this;
     wx.request({
-      url:'https://fzd.xcloudtech.com:8989/mall/sign',
+      url:app.globalData.urlDomain + '/mall/sign',
       data: {
         UID: wx.getStorageSync('uid')
       },

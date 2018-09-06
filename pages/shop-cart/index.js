@@ -207,8 +207,7 @@ Page({
       var carShopBean = list[parseInt(index)];
       var carShopBeanStores = 0;
       wx.request({
-        // url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/detail',
-        url:'https://fzd.xcloudtech.com:8989/mall/goodsDetail',
+        url:app.globalData.urlDomain + '/mall/goodsDetail',
         data: {
           // id: carShopBean.goodsId
           GoodsId:carShopBean.goodsId
@@ -305,8 +304,7 @@ Page({
         // 获取价格和库存
         if (!carShopBean.propertyChildIds || carShopBean.propertyChildIds == "") {
           wx.request({
-            // url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/detail',
-            url:'https://fzd.xcloudtech.com:8989/mall/goodsDetail',
+            url:app.globalData.urlDomain + '/mall/goodsDetail',
             data: {
               // id: carShopBean.goodsId
               GoodsId:carShopBean.goodsId

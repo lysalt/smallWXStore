@@ -54,7 +54,7 @@ Page({
       } 
     })
     wx.request({
-      url: 'https://fzd.xcloudtech.com:8989/mall/productDetail',
+      url:app.globalData.urlDomain + '/mall/productDetail',
       data: {
         productId:e.id
       },
@@ -72,8 +72,12 @@ Page({
           });
         }
         that.data.goodsDetail = res.data;
+        
         if (res.data.videoId) {
-          that.getVideoSrc(res.data.videoId);
+          that.setData({
+            videoMp4Src: app.globalData.urlDomain + res.data.videoId
+          });
+          //that.getVideoSrc(res.data.videoId);
         }
         that.setData({
           goodsDetail:res.data,
@@ -414,7 +418,7 @@ Page({
     var that = this;
     console.log('get reputation');
     wx.request({
-      url:'https://fzd.xcloudtech.com:8989/mall/reputation',
+      url:app.globalData.urlDomain + '/mall/reputation',
       data: {
         GoodsId: goodsId
       },

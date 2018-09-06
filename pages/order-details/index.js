@@ -15,7 +15,7 @@ Page({
     onShow : function () {
       var that = this;
       wx.request({
-        url:'https://fzd.xcloudtech.com:8989/mall/orderDetail',
+        url:app.globalData.urlDomain + '/mall/orderDetail',
         data: {
           OrderId:that.data.orderId
         },
@@ -61,8 +61,7 @@ Page({
             if (res.confirm) {
               wx.showLoading();
               wx.request({
-                // url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/delivery',
-                url:'https://fzd.xcloudtech.com:8989/mall/recvGoods',
+                url:app.globalData.urlDomain + '/mall/recvGoods',
                 data: {
                   UID: wx.getStorageSync('uid'),
                   OrderId: orderId
@@ -103,7 +102,7 @@ Page({
         goodsIdList.push(goodsList[i].goodsId);
       }
       wx.request({
-        url:'https://fzd.xcloudtech.com:8989/mall/reputation',
+        url:app.globalData.urlDomain + '/mall/reputation',
         data: {
           UID:wx.getStorageSync('uid'),
           GoodsIdList:goodsIdList,

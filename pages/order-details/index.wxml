@@ -72,7 +72,6 @@
             </view>
             </block>
             <view class="btn-row" wx:if="{{orderDetail.Status==3}}">
-                
                   <view class="section section_gap">
                     <view style="margin-top:35rpx;margin-bottom:35rpx;">评价：</view>
                     <radio-group name="goodReputation">

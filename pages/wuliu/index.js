@@ -10,7 +10,7 @@ Page({
   onShow: function () {
     var that = this;
     wx.request({
-      url:'https://fzd.xcloudtech.com:8989/mall/orderDetail',
+      url:app.globalData.urlDomain + '/mall/orderDetail',
       data: {
         UID: wx.getStorageSync('uid'),
         OrderId:that.data.orderId
