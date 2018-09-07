@@ -71,8 +71,16 @@ Page({
             totalScoreToPay: res.data.minScore
           });
         }
-        that.data.goodsDetail = res.data;
-        
+        if (res.data.pics && res.data.pics.length > 0) {
+          for (var i = 0; i < res.data.pics.length; i++) {
+            if (res.data.pics[i].indexOf('http') != 0) {
+              res.data.pics[i] = app.globalData.urlDomain + res.data.pics[i];
+            }
+          }
+        }
+        if (res.data.pic.indexOf('http') != 0) {
+          res.data.pic = app.globalData.urlDomain + res.data.pic;
+        }
         if (res.data.videoId) {
           that.setData({
             videoMp4Src: app.globalData.urlDomain + res.data.videoId
