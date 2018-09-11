@@ -85,7 +85,6 @@ Page({
           that.setData({
             videoMp4Src: app.globalData.urlDomain + res.data.videoId
           });
-          //that.getVideoSrc(res.data.videoId);
         }
         that.setData({
           goodsDetail:res.data,
@@ -416,9 +415,35 @@ Page({
       path: '/pages/goods-details/index?id=' + this.data.goodsDetail._id + '&inviter_id=' + wx.getStorageSync('uid'),
       success: function (res) {
         // 转发成功
+        var postData = {
+          UID:wx.getStorageSync('uid'),
+          GoodsId:this.data.goodsDetail._id
+        };
+        wx.request({
+          url:app.globalData.urlDomain + '/mall/share',
+          method:'POST',
+          header: {
+            'content-type': 'application/json'
+          },
+          data: postData, // 设置请求的 参数
+          success: (res) => {
+            wx.hideLoading();
+            if (res.header.err) {
+              wx.showModal({
+                title: '出错提示',
+                content: decodeURI(res.header.err),
+              })
+              return;
+            }
+          }
+        });
       },
       fail: function (res) {
         // 转发失败
+        wx.showModal({
+          title: '出错提示',
+          content: '转发失败',
+        })
       }
     }
   },
@@ -434,22 +459,6 @@ Page({
         if (res.data.data) {
           that.setData({
             reputationList:res.data.data
-          });
-        }
-      }
-    })
-  },
-  getVideoSrc: function (videoId) {
-    var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/media/video/detail',
-      data: {
-        videoId: videoId
-      },
-      success: function (res) {
-        if (res.data.code == 0) {
-          that.setData({
-            videoMp4Src: res.data.data.fdMp4
           });
         }
       }
@@ -477,30 +486,30 @@ Page({
     }
   },
   goKanjia: function () {
-    var that = this;
-    if (!that.data.curGoodsKanjia) {
-      return;
-    }
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/kanjia/join',
-      data: {
-        kjid: that.data.curGoodsKanjia.id,
-        token: wx.getStorageSync('token')
-      },
-      success: function (res) {
-        if (res.data.code == 0) {
-          console.log(res.data);
-          wx.navigateTo({
-            url: "/pages/kanjia/index?kjId=" + res.data.data.kjId + "&joiner=" + res.data.data.uid + "&id=" + res.data.data.goodsId
-          })
-        } else {
-          wx.showModal({
-            title: '错误',
-            content: res.data.msg,
-            showCancel: false
-          })
-        }
-      }
-    })
+    // var that = this;
+    // if (!that.data.curGoodsKanjia) {
+    //   return;
+    // }
+    // wx.request({
+    //   url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/kanjia/join',
+    //   data: {
+    //     kjid: that.data.curGoodsKanjia.id,
+    //     token: wx.getStorageSync('token')
+    //   },
+    //   success: function (res) {
+    //     if (res.data.code == 0) {
+    //       console.log(res.data);
+    //       wx.navigateTo({
+    //         url: "/pages/kanjia/index?kjId=" + res.data.data.kjId + "&joiner=" + res.data.data.uid + "&id=" + res.data.data.goodsId
+    //       })
+    //     } else {
+    //       wx.showModal({
+    //         title: '错误',
+    //         content: res.data.msg,
+    //         showCancel: false
+    //       })
+    //     }
+    //   }
+    // })
   },
 })

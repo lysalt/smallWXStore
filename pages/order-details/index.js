@@ -136,5 +136,12 @@ Page({
           //   '/pages/order-details/index?id=' + that.data.orderId, JSON.stringify(postJsonString));
         }
       })
+    },
+    submitProblem: function(e) {
+      var orderId = e.currentTarget.dataset.id;
+      console.log(orderId);
+      wx.navigateTo({
+        url: "/pages/problem-submit/index?id=" + orderId
+      })
     }
 })

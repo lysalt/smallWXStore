@@ -88,6 +88,9 @@
             <view class="btn-row" wx:if="{{orderDetail.Status==3}}">
                 <button class="confirm-btn" formType="submit">提交评价</button>
             </view>
+            <view class="btn-row" hidden="{{orderDetail.Status!=3}}">
+                <view class="title" bindtap="submitProblem" data-id="{{orderDetail._id}}">商品有问题，申请售后</view>
+            </view>
             </form>
             <form bindsubmit="confirmBtnTap" report-submit="true">
             <view class="btn-row" wx:if="{{orderDetail.Status==2}}">

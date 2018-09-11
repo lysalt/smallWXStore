@@ -2,7 +2,7 @@ var wxpay = require('../../utils/pay.js')
 var app = getApp()
 Page({
   data:{
-    statusType: ["待付款", "待发货", "待收货", "待评价", "已完成"],
+    statusType: ["待付款", "待发货", "待收货", "待评价", "售后中", "已完成"],
     currentType:0,
     tabClass: ["", "", "", "", ""]
   },
@@ -171,7 +171,7 @@ Page({
       UID:wx.getStorageSync('uid')
     };
     postData.Status = that.data.currentType;
-    this.getOrderStatistics();
+    //this.getOrderStatistics();
     wx.request({
       url:app.globalData.urlDomain + '/mall/orderList',
       data: postData,

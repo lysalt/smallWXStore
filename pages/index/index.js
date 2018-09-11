@@ -69,6 +69,11 @@ Page({
             showCancel: false
           })
         } else {
+          for (var i = 0; i < res.data.data.length; i++) {
+            if (res.data.data[i].picUrl.indexOf('http') != 0) {
+              res.data.data[i].picUrl = app.globalData.urlDomain + res.data.data[i].picUrl;
+            }
+          }
           that.setData({
             banners: res.data.data
           });

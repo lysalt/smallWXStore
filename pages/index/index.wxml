@@ -6,7 +6,7 @@
                     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
             <block wx:for="{{banners}}" wx:key="id">
                 <swiper-item>
-                    <image bindtap="tapBanner" data-id="{{item.businessId}}" src="{{item.picUrl}}_m" class="slide-image" width="750rpx" height="562.5rpx"/>
+                    <image bindtap="tapBanner" data-id="{{item.id}}" src="{{item.picUrl}}" class="slide-image" width="750rpx" height="562.5rpx"/>
                 </swiper-item>
             </block>
         </swiper>

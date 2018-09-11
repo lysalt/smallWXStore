@@ -304,23 +304,23 @@ Page({
         // 获取价格和库存
         if (!carShopBean.propertyChildIds || carShopBean.propertyChildIds == "") {
           wx.request({
-            url:app.globalData.urlDomain + '/mall/goodsDetail',
+            url:app.globalData.urlDomain + '/mall/productDetail',
             data: {
               // id: carShopBean.goodsId
               GoodsId:carShopBean.goodsId
             },
             success: function(res) {
               doneNumber++;
-              if (res.data.properties) {
-                wx.showModal({
-                  title: '提示',
-                  content: res.data.name + ' 商品已失效，请重新购买',
-                  showCancel:false
-                })
-                isFail = true;
-                wx.hideLoading();
-                return;
-              }
+              // if (res.data.properties) {
+              //   wx.showModal({
+              //     title: '提示',
+              //     content: res.data.name + ' 商品已失效，请重新购买',
+              //     showCancel:false
+              //   })
+              //   isFail = true;
+              //   wx.hideLoading();
+              //   return;
+              // }
               if (res.data.stores < carShopBean.number) {
                 wx.showModal({
                   title: '提示',

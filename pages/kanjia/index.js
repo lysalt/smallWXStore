@@ -25,7 +25,7 @@ Page({
     this.data.joiner = e.joiner;
     var that = this;
     wx.request({
-      url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/detail',
+      url: app.globalData.subDomain +'/shop/goods/detail',
       data: {
         id: e.id
       },

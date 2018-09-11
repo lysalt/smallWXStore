@@ -6,7 +6,7 @@ Page({
   data: {
     totalScoreToPay: 0,
     goodsList:[],
-    isNeedLogistics:0, // 是否需要物流信息
+    isNeedLogistics:1, // 是否需要物流信息
     allGoodsPrice:0,
     yunPrice:0,
     allGoodsAndYunPrice:0,
@@ -91,35 +91,26 @@ Page({
     if (that.data.kjId) {
       postData.kjid = that.data.kjId;
     }
-    if (that.data.isNeedLogistics > 0) {
-      if (!that.data.curAddressData) {
-        wx.hideLoading();
-        wx.showModal({
-          title: '错误',
-          content: '请先设置您的收货地址！',
-          showCancel: false
-        })
-        return;
-      }
-      // postData.provinceId = that.data.curAddressData.provinceId;
-      // postData.cityId = that.data.curAddressData.cityId;
-      // if (that.data.curAddressData.districtId) {
-      //   postData.districtId = that.data.curAddressData.districtId;
-      // }
-      // postData.address = that.data.curAddressData.address;
-      // postData.linkMan = that.data.curAddressData.linkMan;
-      // postData.mobile = that.data.curAddressData.mobile;
-      // postData.code = that.data.curAddressData.code;
-      postData.Pro = that.data.curAddressData.Pro;
-      postData.City = that.data.curAddressData.City;
-      if (that.data.curAddressData.Dist) {
-        postData.Dist = that.data.curAddressData.Dist;
-      }
-      postData.Addr = that.data.curAddressData.Addr;
-      postData.LinkMan = that.data.curAddressData.LinkMan;
-      postData.Mobile = that.data.curAddressData.Mobile;
-      postData.Code = that.data.curAddressData.Code;
+    if (!that.data.curAddressData) {
+      wx.hideLoading();
+      wx.showModal({
+        title: '错误',
+        content: '请先设置您的收货地址！',
+        showCancel: false
+      })
+      return;
     }
+
+    postData.Pro = that.data.curAddressData.Pro;
+    postData.City = that.data.curAddressData.City;
+    if (that.data.curAddressData.Dist) {
+      postData.Dist = that.data.curAddressData.Dist;
+    }
+    postData.Addr = that.data.curAddressData.Addr;
+    postData.LinkMan = that.data.curAddressData.LinkMan;
+    postData.Mobile = that.data.curAddressData.Mobile;
+    postData.Code = that.data.curAddressData.Code;
+
     if (that.data.curCoupon) {
       postData.CouponId = that.data.curCoupon.id;
     }
@@ -211,7 +202,7 @@ Page({
     var that = this;
     var goodsList = this.data.goodsList;
     var goodsJsonStr = "[";
-    var isNeedLogistics = 0;
+    var isNeedLogistics = 1;
     var allGoodsPrice = 0;
     var allNumber = 0;
     var goodsMap = {};

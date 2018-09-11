@@ -44,7 +44,7 @@ App({
       wx.navigateTo({
         url: "/pages/authorize/index"
       })
-    }, 1000)    
+    }, 1000)
   },
   globalData:{
     userInfo:null,

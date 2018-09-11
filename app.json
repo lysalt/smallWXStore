@@ -9,9 +9,11 @@
     "pages/address-add/index",
     "pages/order-list/index",
     "pages/order-details/index",
+    "pages/problem-submit/index",
     "pages/wuliu/index",
     "pages/mycoupons/index",
     "pages/my/index",
+    "pages/share-list/index",
     "pages/notice/show",
     "pages/recharge/index",
     "pages/withdraw/index",
@@ -46,6 +48,12 @@
       "iconPath": "images/nav/my-off.png",
       "selectedIconPath": "images/nav/my-on.png",
       "text": "我的"
+    },
+    {
+      "pagePath": "pages/share-list/index",
+      "iconPath": "images/nav/my-off.png",
+      "selectedIconPath": "images/nav/my-on.png",
+      "text": "分享订单"
     }]
   }
 }
