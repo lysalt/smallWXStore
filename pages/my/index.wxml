@@ -22,6 +22,9 @@
     <navigator url="/pages/order-list/index" hover-class="navigator-hover">我的订单</navigator>
   </view>
   <view class="my-item">
+    <navigator url="/pages/after-sale/index" hover-class="navigator-hover">退换/售后</navigator>
+  </view>
+  <view class="my-item">
     <navigator url="/pages/select-address/index" hover-class="navigator-hover">我的收货地址</navigator>
   </view>
   <!-- <view class="my-item">

@@ -3,7 +3,7 @@
 var config = require('../../config')
 var util = require('../../utils/util.js')
 var upFiles = require('../../utils/upFiles.js')
-var app = getApp();
+// var app = getApp();
 Page({
   /**
    * 页面的初始数据
@@ -29,7 +29,7 @@ Page({
       let _this = this;
       let arr = _this.data.upImgArr;
       let preArr = [];
-      arr.map(function(v,i){
+      arr.map(function(v, i) {
           preArr.push(v.path)
       })
     //   console.log(preArr)
@@ -104,14 +104,13 @@ Page({
       })
       upData['url'] = config.service.upFiles;
       upData['formData'] = {orderId:this.data.orderId};
-      upFiles.upFilesFun(_this, upData, function(res){
+      upFiles.upFilesFun(_this, upData, function(res) {
           if (res.index < upImgArr.length){
               upImgArr[res.index]['progress'] = res.progress
-              
               _this.setData({
                   upImgArr: upImgArr,
               })
-          }else{
+          } else {
               let i = res.index - upImgArr.length;
               upVideoArr[i]['progress'] = res.progress
               _this.setData({
@@ -121,6 +120,14 @@ Page({
       }, function (arr) {
           // success
           console.log(arr)
+          wx.showModal({
+            title: '提示',
+            content: '提交申诉结束，订单状态将改为售后中',
+            showCancel:false
+          })
+          wx.navigateTo({
+            url:"/pages/order-list/index"
+          });
       })
   }
 })

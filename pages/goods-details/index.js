@@ -368,7 +368,7 @@ Page({
 	 */
   buliduBuyNowInfo: function () {
     var shopCarMap = {};
-    shopCarMap.goodsId = this.data.goodsDetail.id;
+    shopCarMap.goodsId = this.data.goodsDetail._id;
     shopCarMap.pic = this.data.goodsDetail.pic;
     shopCarMap.name = this.data.goodsDetail.name;
     shopCarMap.propertyChildIds = this.data.propertyChildIds;

@@ -301,15 +301,17 @@ Page({
           return;
         }
         let carShopBean = shopList[i];
+        //console.log(carShopBean);
         // 获取价格和库存
         if (!carShopBean.propertyChildIds || carShopBean.propertyChildIds == "") {
           wx.request({
             url:app.globalData.urlDomain + '/mall/productDetail',
             data: {
               // id: carShopBean.goodsId
-              GoodsId:carShopBean.goodsId
+              productId:carShopBean.goodsId
             },
             success: function(res) {
+              //console.log(res.data);
               doneNumber++;
               // if (res.data.properties) {
               //   wx.showModal({

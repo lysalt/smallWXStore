@@ -8,6 +8,7 @@
     "pages/select-address/index",
     "pages/address-add/index",
     "pages/order-list/index",
+    "pages/after-sale/index",
     "pages/order-details/index",
     "pages/problem-submit/index",
     "pages/wuliu/index",
@@ -53,7 +54,7 @@
       "pagePath": "pages/share-list/index",
       "iconPath": "images/nav/my-off.png",
       "selectedIconPath": "images/nav/my-on.png",
-      "text": "分享订单"
+      "text": "分享"
     }]
   }
 }
