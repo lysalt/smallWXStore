@@ -6,6 +6,14 @@ Page({
     currentType:0,
     tabClass: ["", "", "", "", ""]
   },
+  statusTap:function(e){
+     var curType =  e.currentTarget.dataset.index;
+     this.data.currentType = curType
+     this.setData({
+       currentType:curType
+     });
+     this.onShow();
+  },
   orderDetail : function (e) {
     var orderId = e.currentTarget.dataset.id;
     wx.navigateTo({
@@ -27,17 +35,22 @@ Page({
       UID:wx.getStorageSync('uid')
     };
     wx.request({
-      url:app.globalData.urlDomain + '/mall/shareInfo',
+      url:app.globalData.urlDomain + '/mall/share',
       data: postData,
       success: (res) => {
         wx.hideLoading();
-        if (res.data) {
+        if (res.data.data && res.data.data.length > 0) {
+          for (var i = 0; i < res.data.data.length; i++) {
+            if (res.data.data[i].pic.indexOf('http') != 0) {
+              res.data.data[i].pic = app.globalData.urlDomain + res.data.data[i].pic;
+            }
+          }          
           that.setData({
-            orderList: res.data
+            goodsList: res.data.data
           });
         } else {
           this.setData({
-            orderList: null
+            goodsList: null
           });
         }
       }

@@ -410,6 +410,7 @@ Page({
     return buyNowInfo;
   },   
   onShareAppMessage: function () {
+    var that = this;
     return {
       title: this.data.goodsDetail.name,
       path: '/pages/goods-details/index?id=' + this.data.goodsDetail._id + '&inviter_id=' + wx.getStorageSync('uid'),
@@ -417,7 +418,10 @@ Page({
         // 转发成功
         var postData = {
           UID:wx.getStorageSync('uid'),
-          GoodsId:this.data.goodsDetail._id
+          goodsId:that.data.goodsDetail._id,
+          price:that.data.goodsDetail.minPrice,
+          name:that.data.goodsDetail.name,
+          pic:that.data.goodsDetail.pic
         };
         wx.request({
           url:app.globalData.urlDomain + '/mall/share',

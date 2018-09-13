@@ -1,7 +1,13 @@
 <!--pages/index/index.wxml-->
- 
 
-<view class="optClass">
+<form bindsubmit="submitProblem" report-submit="true">
+
+<view class="optClass" style="margin-top:35rpx">
+  <view class="optName">备注</view>
+  <textarea name="problemRemark" style="margin-top:35rpx;width:100%;height:100rpx;" value="" />
+</view> 
+
+<view class="optClass" style="margin-top:35rpx">
     <view class='optName'>附件</view> 
     <view class='optContent'>可上传图片或视频</view>
 </view>
@@ -27,12 +33,8 @@
     
 </view>
 
-<view class="row-box" style="margin-top:35rpx">
-  <view class="row-label">备注</view>
-  <textarea name="problemRemark" style="margin-top:35rpx;width:100%;" value="" />
-</view>
-
 <view class='subBtnBox'>
-    <button class='subBtn' type='button' bindtap='subFormData'>提交申诉</button>
+    <button class="subBtn" formType="submit">提交评价</button>
 </view>
 
+</form>

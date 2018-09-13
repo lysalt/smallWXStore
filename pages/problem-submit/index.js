@@ -94,7 +94,7 @@ Page({
       })
   },
   // 上传文件
-  subFormData:function(){
+  submitProblem:function(e){
       let _this = this;
       let upData = {};
       let upImgArr = _this.data.upImgArr;
@@ -103,7 +103,7 @@ Page({
           upFilesProgress:true,
       })
       upData['url'] = config.service.upFiles;
-      upData['formData'] = {orderId:this.data.orderId};
+      upData['formData'] = {orderId:this.data.orderId, content:e.detail.value["problemRemark"]};
       upFiles.upFilesFun(_this, upData, function(res) {
           if (res.index < upImgArr.length){
               upImgArr[res.index]['progress'] = res.progress

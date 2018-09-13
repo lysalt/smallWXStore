@@ -170,7 +170,7 @@ page{
     background:#ffffff;
     border:1rpx solid #e64340;
     border-radius:6rpx;
-    width:164rpx;
+    width:180rpx;
     height:60rpx;
     line-height: 60rpx;
     text-align: center;
