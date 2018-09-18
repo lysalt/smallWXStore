@@ -34,8 +34,12 @@ Page({
     var postData = {
       UID:wx.getStorageSync('uid')
     };
+    var url = app.globalData.urlDomain + '/mall/share';
+    if (this.data.currentType == 1) {
+      url = app.globalData.urlDomain + '/mall/shareInfo';
+    }
     wx.request({
-      url:app.globalData.urlDomain + '/mall/share',
+      url:url,
       data: postData,
       success: (res) => {
         wx.hideLoading();

@@ -102,6 +102,22 @@ Page({
       _this.setData({
           upFilesProgress:true,
       })
+      if (e.detail.value["problemRemark"] == '') {
+          wx.showModal({
+            title: '提示',
+            content: '请输入备注内容',
+            showCancel:false
+          })
+          return
+      }
+      if (!upImgArr && !upVideoArr) {
+          wx.showModal({
+            title: '提示',
+            content: '请上传图片或视频',
+            showCancel:false
+          })
+          return        
+      }
       upData['url'] = config.service.upFiles;
       upData['formData'] = {orderId:this.data.orderId, content:e.detail.value["problemRemark"]};
       upFiles.upFilesFun(_this, upData, function(res) {
@@ -118,15 +134,13 @@ Page({
               })
           }
       }, function (arr) {
-          // success
-          console.log(arr)
           wx.showModal({
             title: '提示',
-            content: '提交申诉结束，订单状态将改为售后中',
+            content: '提交申诉成功，我们会尽快处理',
             showCancel:false
           })
           wx.navigateTo({
-            url:"/pages/order-list/index"
+            url:"/pages/order-list/index?curType=5"
           });
       })
   }

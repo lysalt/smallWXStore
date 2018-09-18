@@ -48,7 +48,6 @@ function wxpay(app, money, orderId, redirectUrl) {
                 url: redirectUrl
               });              
             }
-
           });
         }
       })

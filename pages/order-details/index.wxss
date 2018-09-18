@@ -239,7 +239,7 @@ page{
 .goods-info{
     width: 100%;
     background-color: #fff;
-    margin-bottom: 120rpx;
+    margin-bottom: 20rpx;
     padding-bottom: 24rpx;
 }
 .goods-info .row-box{

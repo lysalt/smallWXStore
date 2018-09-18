@@ -7,6 +7,7 @@
                 <image wx:elif="{{orderDetail.Status==1}}" class="icon" src="/images/order-details/icon-ddfh.png"></image>
                 <image wx:elif="{{orderDetail.Status==2}}" class="icon" src="/images/order-details/icon-ddsh.png"></image>
                 <image wx:elif="{{orderDetail.Status==3 || orderDetail.Status==4}}" class="icon" src="/images/order-details/icon-jycg.png"></image>
+                <image wx:elif="{{orderDetail.Status==5}}" class="icon" src="/images/order-details/icon-ddgb.png"></image>
             </view>
             <view class="right-text">
                 <view class="status red">{{orderDetail.statusStr}}</view>
@@ -119,6 +120,16 @@
             <view class="row-box">
                 <view class="row-label">应付总额</view>
                 <view class="right-text">¥ {{orderDetail.AmountReal}}</view>
+            </view>
+        </view>
+        <view class="peisong-way" wx:if="{{orderDetail.PContent}}">
+            <view class="row-box">
+                <view class="row-label">售后内容</view>
+                <view class="right-text">{{orderDetail.PContent}}</view>
+            </view>
+            <view class="row-box">
+                <view class="row-label">申请时间</view>
+                <view class="right-text">{{orderDetail.PDate}}</view>
             </view>
         </view>
 </view>

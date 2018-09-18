@@ -100,22 +100,29 @@ Page({
               if (res2.header.err) {
                 wx.showModal({
                   title: '出错提示',
-                  content: decodeURI(res2.header.err),
+                  content: decodeURI(res2.header.err)
                 })
                 return;
               }
+              wx.showToast({title: '支付成功'})
+              that.setData({
+                 currentType:1
+              });
               that.onShow();
             }
           })
         } else {
-          wxpay.wxpay(app, money, orderId, "/pages/order-list/index");
+          wxpay.wxpay(app, money, orderId, "/pages/order-list/index?curType=1");
         }
       }
     })    
   },
-  onLoad:function(options){
-    // 生命周期函数--监听页面加载
-   
+  onLoad:function(e){
+    if (e.curType) {
+     this.setData({
+       currentType:Number(e.curType)
+     });
+    }
   },
   onReady:function(){
     // 生命周期函数--监听页面初次渲染完成

@@ -19,7 +19,8 @@
                     <view class="arow arow01">
                         <view class="goods-name">{{item.name}}</view>
                         <view class="goods-price">¥ {{item.price}}</view>
-                        <view class="goods-price">{{item.SDate}}</view>
+                        <view class="goods-price" hidden="{{currentType==0? false : true}}">{{item.SDate}}</view>
+                        <view class="goods-price" hidden="{{currentType==1? false : true}}">佣金:¥{{item.Tip}}</view>
                     </view>
                 </view>
             </view>
