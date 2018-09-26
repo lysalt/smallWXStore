@@ -79,30 +79,30 @@ Page({
       return
     }
     wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/withDraw/apply',
+      url: app.globalData.urlDomain + '/mall/applyWithDraw',
+      method:'POST',
       data: {
-        token: wx.getStorageSync('token'),
-        money: amount
+        UID: wx.getStorageSync('uid'),
+        Money: amount
       },
       success: function (res) {
-        if (res.data.code == 0) {
+        if (res.header.err) {
           wx.showModal({
-            title: '成功',
-            content: '您的提现申请已提交，等待财务打款',
-            showCancel: false,
-            success: function (res) {
-              if (res.confirm) {
-                that.bindCancel();
-              }
-            }
+            title: '出错提示',
+            content: decodeURI(res.header.err),
           })
-        } else {
-          wx.showModal({
-            title: '错误',
-            content: res.data.msg,
-            showCancel: false
-          })
+          return;
         }
+        wx.showModal({
+          title: '成功',
+          content: '您的提现申请已提交，等待财务打款',
+          showCancel: false,
+          success: function (res) {
+            if (res.confirm) {
+              that.bindCancel();
+            }
+          }
+        })
       }
     })
   }

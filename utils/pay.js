@@ -3,7 +3,6 @@ function wxpay(app, money, orderId, redirectUrl) {
   let nextAction = {};
   if (orderId != 0) {
     remark = "支付订单 ：" + orderId;
-    nextAction = { type: 0, id: orderId };
   }
   wx.request({
     url:app.globalData.urlDomain + '/mall/wxPay',
@@ -12,7 +11,7 @@ function wxpay(app, money, orderId, redirectUrl) {
       Money:money,
       Remark: remark,
       PayName:"在线支付",
-      NextAction: nextAction
+      OrderId:orderId
     },
     method:'POST',
     success: function(res){

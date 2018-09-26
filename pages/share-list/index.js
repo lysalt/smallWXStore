@@ -2,7 +2,7 @@ var wxpay = require('../../utils/pay.js')
 var app = getApp()
 Page({
   data:{
-    statusType: ["分享列表", "已付款", "已发货", "已完成"],
+    statusType: ["分享列表", "已付款", "已完成"],
     currentType:0,
     tabClass: ["", "", "", "", ""]
   },
@@ -37,7 +37,13 @@ Page({
     var url = app.globalData.urlDomain + '/mall/share';
     if (this.data.currentType == 1) {
       url = app.globalData.urlDomain + '/mall/shareInfo';
+      postData['Status'] = 1;
     }
+    if (this.data.currentType == 2) {
+      url = app.globalData.urlDomain + '/mall/shareInfo';
+      postData['Status'] = 4;      
+    }
+
     wx.request({
       url:url,
       data: postData,
@@ -48,7 +54,7 @@ Page({
             if (res.data.data[i].pic.indexOf('http') != 0) {
               res.data.data[i].pic = app.globalData.urlDomain + res.data.data[i].pic;
             }
-          }          
+          }
           that.setData({
             goodsList: res.data.data
           });
