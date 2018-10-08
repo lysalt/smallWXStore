@@ -55,67 +55,76 @@ Page({
   },
   toPayTap:function(e){
     var that = this;
-    var orderId = e.currentTarget.dataset.id;
-    var money = e.currentTarget.dataset.money;
-    var needScore = e.currentTarget.dataset.score;
-    wx.request({
-      url:app.globalData.urlDomain + '/mall/userDetail',
-      data: {
-        // token: wx.getStorageSync('token')
-        UID:wx.getStorageSync('uid')
-      },
-      success: function (res) {
-        if (res.header.err) {
-          wx.showModal({
-            title: '出错提示',
-            content: decodeURI(res.header.err),
-          })
-          return;
-        }
-
-        money = money - res.data.Balance;
-        if (res.data.Score < needScore) {
-          wx.showModal({
-            title: '错误',
-            content: '您的积分不足，无法支付',
-            showCancel: false
-          })
-          return;
-        }
-        if (money <= 0) {
-          // 直接使用余额支付
+     wx.showModal({
+         title: '提示',
+         content: '确定付款吗？',
+         success: function (res) {
+          if (res.cancel) {
+            return;
+          }
+          var orderId = e.currentTarget.dataset.id;
+          var money = e.currentTarget.dataset.money;
+          var needScore = e.currentTarget.dataset.score;
           wx.request({
-            url:app.globalData.urlDomain + '/mall/balancePay',
-            method:'POST',
-            header: {
-              'content-type': 'application/x-www-form-urlencoded'
-            },
+            url:app.globalData.urlDomain + '/mall/userDetail',
             data: {
-              UID:wx.getStorageSync('uid'),
-              OrderId:orderId
-              // token: wx.getStorageSync('token'),
-              // orderId: orderId
+              // token: wx.getStorageSync('token')
+              UID:wx.getStorageSync('uid')
             },
-            success: function (res2) {
-              if (res2.header.err) {
+            success: function (res) {
+              if (res.header.err) {
                 wx.showModal({
                   title: '出错提示',
-                  content: decodeURI(res2.header.err)
+                  content: decodeURI(res.header.err),
                 })
                 return;
               }
-              wx.showToast({title: '支付成功'})
-              that.setData({
-                 currentType:1
-              });
-              that.onShow();
+
+              money = money - res.data.Balance;
+              if (res.data.Score < needScore) {
+                wx.showModal({
+                  title: '错误',
+                  content: '您的积分不足，无法支付',
+                  showCancel: false
+                })
+                return;
+              }
+              if (money <= 0) {
+                // 直接使用余额支付
+                wx.request({
+                  url:app.globalData.urlDomain + '/mall/balancePay',
+                  method:'POST',
+                  header: {
+                    'content-type': 'application/x-www-form-urlencoded'
+                  },
+                  data: {
+                    UID:wx.getStorageSync('uid'),
+                    OrderId:orderId
+                    // token: wx.getStorageSync('token'),
+                    // orderId: orderId
+                  },
+                  success: function (res2) {
+                    if (res2.header.err) {
+                      wx.showModal({
+                        title: '出错提示',
+                        content: decodeURI(res2.header.err)
+                      })
+                      return;
+                    }
+                    wx.showToast({title: '支付成功'})
+                    that.setData({
+                       currentType:1
+                    });
+                    that.onShow();
+                  }
+                })
+              } else {
+                wxpay.wxpay(app, money, orderId, "/pages/order-list/index?curType=1");
+              }
             }
-          })
-        } else {
-          wxpay.wxpay(app, money, orderId, "/pages/order-list/index?curType=1");
-        }
-      }
-    })    
+          }) 
+        }  
+    });
   },
   onLoad:function(e){
     if (e.curType) {
