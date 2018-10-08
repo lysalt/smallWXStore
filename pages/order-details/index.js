@@ -107,7 +107,7 @@ Page({
           UID:wx.getStorageSync('uid'),
           GoodsIdList:goodsIdList,
           OrderId:this.data.orderId,
-          Reputation:e.detail.value["goodReputation"],
+          // Reputation:e.detail.value["goodReputation"],
           ReputationRemark:e.detail.value["goodReputationRemark"]
         },
         header: {

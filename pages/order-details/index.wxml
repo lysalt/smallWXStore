@@ -73,16 +73,8 @@
             </view>
             </block>
             <view class="btn-row" wx:if="{{orderDetail.Status==3}}">
-                  <view class="section section_gap">
-                    <view style="margin-top:35rpx;margin-bottom:35rpx;">评价：</view>
-                    <radio-group name="goodReputation">
-                      <label style="margin-right:35rpx;"><radio value="2" checked/>好评</label>
-                      <label style="margin-right:35rpx;"><radio value="1"/>中评</label>
-                      <label style="margin-right:35rpx;"><radio value="0"/>差评</label>
-                    </radio-group>
-                  </view>
                   <view class="row-box" style="margin-top:35rpx">
-                      <view class="row-label">备注</view>
+                      <view class="row-label">评价</view>
                       <textarea name="goodReputationRemark" style="margin-top:35rpx;width:100%;height:200rpx" value="非常愉快的一次购物！" />
                   </view>
             </view>

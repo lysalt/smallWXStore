@@ -7,20 +7,25 @@
     </view>
     <view class="no-order" hidden="{{goodsList ? true : false}}">
         <image src="/images/no-order.png" class="no-order-img"></image>
-        <view class="text">暂无分享订单</view>
+        <view class="text" hidden="{{currentType==0? false : true}}">暂无分享商品</view>
+        <view class="text" hidden="{{currentType==1? false : true}}">暂无朋友下单</view>
+        <view class="text" hidden="{{currentType==2? false : true}}">暂无完成的订单</view>
     </view>
-    <view class="goods-list" hidden="{{goodsList ? false : true}}">
-        <view class="a-order" wx:for-items="{{goodsList}}" wx:key="{{index}}">
-            <view class="a-goods">
+    <view hidden="{{goodsList ? false : true}}">
+        <view class="goods-list" wx:for-items="{{goodsList}}" wx:key="{{index}}">
+            <view class="a-goods" bindtap="enterDetail"  data-id="{{item.goodsId}}" >
                 <view class="img-box">
                     <image src="{{item.pic}}" class="img" />
                 </view>
                 <view class="text-box">
                     <view class="arow arow01">
-                        <view class="goods-name">{{item.name}}</view>
-                        <view class="goods-price">¥ {{item.price}}</view>
+                        <view class="goods-name">{{item.name}}   ¥ {{item.price}}</view>
+                        <view class="goods-price"  hidden="{{currentType==0? true : false}}">数量：{{item.number}}</view>
+                    </view>
+                    <view class="arow">
+                        <!--<view class="btn cancel-btn" hidden="{{currentType==0? false : true}}" bindtap="deleteShare"  data-id="{{item._id}}">删除</view>-->
                         <view class="goods-price" hidden="{{currentType==0? false : true}}">{{item.SDate}}</view>
-                        <view class="goods-price" hidden="{{currentType==1? false : true}}">佣金:¥{{item.Tip}}</view>
+                        <view class="goods-price" hidden="{{currentType==0? true : false}}">佣金:¥{{item.Tip}}; （{{item.Status}}）</view>
                     </view>
                 </view>
             </view>

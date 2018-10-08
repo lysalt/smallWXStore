@@ -3,6 +3,7 @@ var app = getApp()
 Page({
   data:{
     statusType: ["分享列表", "已付款", "已完成"],
+    orderStatusType: ["待付款", "待发货", "待收货", "待评价", "已完成", "售后中"],
     currentType:0,
     tabClass: ["", "", "", "", ""]
   },
@@ -37,7 +38,7 @@ Page({
     var url = app.globalData.urlDomain + '/mall/share';
     if (this.data.currentType == 1) {
       url = app.globalData.urlDomain + '/mall/shareInfo';
-      postData['Status'] = 1;
+      postData['Status'] = 10;
     }
     if (this.data.currentType == 2) {
       url = app.globalData.urlDomain + '/mall/shareInfo';
@@ -53,6 +54,21 @@ Page({
           for (var i = 0; i < res.data.data.length; i++) {
             if (res.data.data[i].pic.indexOf('http') != 0) {
               res.data.data[i].pic = app.globalData.urlDomain + res.data.data[i].pic;
+            }
+            if (res.data.data[i].Status == 1) {
+              res.data.data[i].Status = '待发货';
+            }
+            if (res.data.data[i].Status == 2) {
+              res.data.data[i].Status = '待收货';
+            }
+            if (res.data.data[i].Status == 3) {
+              res.data.data[i].Status = '待评价';
+            }
+            if (res.data.data[i].Status == 4) {
+              res.data.data[i].Status = '佣金已返到余额';
+            }
+            if (res.data.data[i].Status == 5) {
+              res.data.data[i].Status = '售后中';
             }
           }
           that.setData({
@@ -81,5 +97,41 @@ Page({
   onReachBottom: function() {
     // 页面上拉触底事件的处理函数
   
+  },
+  enterDetail: function (e) {
+    wx.navigateTo({
+      url:"/pages/goods-details/index?id=" + e.currentTarget.dataset.id
+    }) 
+  },
+  deleteShare:function(e) {
+    var that = this;
+    var id = e.currentTarget.dataset.id;
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除该分享吗？',
+      success: function (res) {
+        if (res.confirm) {
+          wx.request({
+            url:app.globalData.urlDomain + '/mall/delShare',
+            data: {
+              ShareId:id
+            },
+            method:'POST',
+            success: (res) => {
+              if (res.header.err) {
+                wx.showModal({
+                  title: '出错提示',
+                  content: decodeURI(res.header.err),
+                })
+                return;
+              }
+              this.onShow();
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })    
   }
 })

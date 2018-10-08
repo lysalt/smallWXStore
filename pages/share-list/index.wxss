@@ -134,31 +134,12 @@
     font-size:26rpx;
     color:#e64340;
 }
-.a-order .price-box .btn{
-    width: 166rpx;
-    height: 60rpx;
-    box-sizing: border-box;
-    text-align: center;
-    line-height: 60rpx;
-    border-radius: 6rpx;
-    margin-left: 20rpx;
-}
-.a-order .price-box .cancel-btn{
-    border: 1rpx solid #ccc;
-    position: absolute;
-    right: 216rpx;
-    top:20rpx;
-}
-.a-order .price-box .topay-btn{
-    border:1px solid #e64340;
-    color: #e64340;
-}
 
 .goods-list{
     width:100%;
     background-color: #fff;
-    margin-bottom: 20rpx;
-    margin-top: 20rpx;
+    margin-bottom: 10rpx;
+    margin-top: 10rpx;
 }
 .goods-list .list-title{
     font-size: 28rpx;
@@ -194,4 +175,66 @@
     width: 720rpx;
     margin-left: 30rpx;
     border-top: 1rpx solid #eee;
+}
+
+.confirm-btn{
+    background:#ffffff;
+    border:1rpx solid #e64340;
+    border-radius:6rpx;
+    width:180rpx;
+    height:60rpx;
+    line-height: 60rpx;
+    text-align: center;
+    margin: 20rpx 30rpx 20rpx auto;
+    font-size:26rpx;
+    color:#e64340;
+    text-align:center;
+}
+
+.a-goods .text-box .arow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ }
+.a-goods .text-box .arow .goods-name{
+     width: 360rpx;
+     font-size:26rpx;
+     height: 74rpx;
+     color:#000000;
+     line-height: 1.6;
+     overflow: hidden;
+ }
+.a-goods .text-box .arow01{
+    margin-bottom: 10rpx;
+}
+.a-goods .text-box .arow .goods-price{
+    font-size:26rpx;
+    color:#000000;
+    align-self: flex-start;
+}
+.a-goods .text-box .arow .goods-label{
+    font-size: 26rpx;
+    color: #999;
+}
+.a-goods .text-box .arow .goods-num{
+    font-size: 26rpx;
+    color: #999;
+}
+
+.a-goods .text-box .arow .btn{
+    width: 166rpx;
+    height: 60rpx;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 60rpx;
+    border-radius: 5rpx;
+    margin-left: 5rpx;
+}
+.a-goods .text-box .arow .cancel-btn{
+    border:1px solid #e64340;
+    color: #e64340;
+}
+.a-goods .text-box .arow .enter-btn{
+    border:1px solid #e64340;
+    color: #e64340;
 }
