@@ -122,6 +122,11 @@ Page({
       url: "/pages/recharge/index"
     })
   },
+  record: function () {
+    wx.navigateTo({
+      url: "/pages/record/show"
+    })
+  },  
   withdraw: function () {
     wx.navigateTo({
       url: "/pages/withdraw/index"

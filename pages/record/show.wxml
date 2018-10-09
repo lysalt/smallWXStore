@@ -1,0 +1,23 @@
+
+<view class="page-body" wx:for="{{list}}" wx:key="id">
+  <view class="a-list">
+    <view class="time-info">
+      {{item.Time}}
+    </view>
+    <view class="text-box">
+      <view class="arow">
+          <view class="name">
+    		    {{item.Type}}{{item.AddValue}}元
+         </view>
+          <view class="name" hidden="{{item.PValue ? false : true}}">
+            微信支付{{item.PValue}}元
+         </view>
+    	</view>
+    	<view class="arow">
+        <view class="name">
+    		当前余额{{item.Balance}}元
+        </view>
+    	</view>
+    </view>	
+  </view>
+</view>
