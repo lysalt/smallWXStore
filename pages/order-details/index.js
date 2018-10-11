@@ -45,9 +45,9 @@ Page({
       // });
     },
     wuliuDetailsTap:function(e){
-      var orderId = e.currentTarget.dataset.id;
+      var trackingNumber = e.currentTarget.dataset.id;
       wx.navigateTo({
-        url: "/pages/wuliu/index?id=" + orderId
+        url: "/pages/wuliu/index?id=" + trackingNumber
       })
     },
     confirmBtnTap:function(e){

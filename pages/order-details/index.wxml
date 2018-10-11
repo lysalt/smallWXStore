@@ -19,7 +19,7 @@
               <view class="icon-box">
                   <image class="icon" src="/images/order-details/icon-wuliu.png"></image>
               </view>
-              <view class="right-text" bindtap="wuliuDetailsTap" data-id="{{orderDetail._id}}">
+              <view class="right-text" bindtap="wuliuDetailsTap" data-id="{{orderId}}">
                   <view class="order-number">快递单号：{{orderDetail.trackingNumber}}</view>
                   <block wx:if="{{orderDetail.logisticsTraces}}">
                   <view class="wuliu-text">{{orderDetail.logisticsTraces[orderDetail.logisticsTraces.length-1].AcceptStation}}</view>
