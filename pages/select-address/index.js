@@ -7,21 +7,17 @@ Page({
   },
 
   selectTap: function (e) {
-    // var id = e.currentTarget.dataset.id;
-    // console.log(22);
-    // wx.request({
-    //   url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/user/shipping-address/update',
-    //   data: {
-    //     token: wx.getStorageSync('token'),
-    //     id:id,
-    //     isDefault:'true'
-    //   },
-    //   success: (res) =>{
-    //     wx.navigateBack({})
-    //   }
-    // })
-    wx.navigateTo({
-      url: "/pages/address-add/index?id=" + e.currentTarget.dataset.id
+    var id = e.currentTarget.dataset.id;
+    wx.request({
+      url: app.globalData.urlDomain + '/mall/setDefaultAddress',
+      method:'POST',
+      data: {
+        UID: wx.getStorageSync('uid'),
+        ShipId:id
+      },
+      success: (res) =>{
+        wx.navigateBack({})
+      }
     })
   },
 
@@ -38,7 +34,6 @@ Page({
   },
   
   onLoad: function () {
-    console.log('onLoad')
   },
   onShow : function () {
     this.initShippingAddress();
@@ -51,12 +46,12 @@ Page({
       data: {
         UID:uid
       },
-      success: (res) =>{
+      success: (res) => {
         if (res.data.data && res.data.data.length > 0) {
           that.setData({
             addressList:res.data.data
           });
-        } else if (res.data.code == 700){
+        } else {
           that.setData({
             addressList: null
           });
@@ -64,5 +59,4 @@ Page({
       }
     })
   }
-
 })

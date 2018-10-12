@@ -6,6 +6,7 @@ Page({
     provinces:[],
     citys:[],
     districts:[],
+    shipid:'',
     selProvince:'请选择',
     selCity:'请选择',
     selDistrict:'请选择',
@@ -39,7 +40,7 @@ Page({
       })
       return
     }
-    if (this.data.selProvince == "请选择"){
+    if (that.data.selProvince == "请选择"){
       wx.showModal({
         title: '提示',
         content: '请选择地区',
@@ -47,7 +48,7 @@ Page({
       })
       return
     }
-    if (this.data.selCity == "请选择"){
+    if (that.data.selCity == "请选择"){
       wx.showModal({
         title: '提示',
         content: '请选择地区',
@@ -55,12 +56,13 @@ Page({
       })
       return
     }
-    var cityId = commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].id;
+    var proId = commonCityData.cityData[that.data.selProvinceIndex].id;
+    var cityId = commonCityData.cityData[that.data.selProvinceIndex].cityList[that.data.selCityIndex].id;
     var districtId;
-    if (this.data.selDistrict == "请选择" || !this.data.selDistrict){
+    if (that.data.selDistrict == "请选择" || !that.data.selDistrict){
       districtId = '';
     } else {
-      districtId = commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].districtList[this.data.selDistrictIndex].id;
+      districtId = commonCityData.cityData[that.data.selProvinceIndex].cityList[that.data.selCityIndex].districtList[that.data.selDistrictIndex].id;
     }
     if (address == ""){
       wx.showModal({
@@ -78,22 +80,16 @@ Page({
       })
       return
     }
-    var apiAddoRuPDATE = "add";
-    var apiAddid = that.data.id;
-    if (apiAddid) {
-      apiAddoRuPDATE = "update";
-    } else {
-      apiAddid = 0;
-    }
+    console.log('shipid:' + that.data.shipid);
     wx.request({
       url:app.globalData.urlDomain + '/mall/shipAddress',
       data: {
         UID:wx.getStorageSync('uid'),
-        ShipId:apiAddid,
-        Pro:this.data.selProvince,
-        City:this.data.selCity,
-        Dist:this.data.selDistrict,
-        ProID: commonCityData.cityData[this.data.selProvinceIndex].id,
+        ShipId:that.data.shipid,
+        Pro:that.data.selProvince,
+        City:that.data.selCity,
+        Dist:that.data.selDistrict,
+        ProId: proId,
         CityId: cityId,
         DistId: districtId,
         LinkMan:linkMan,
@@ -182,6 +178,9 @@ Page({
     this.initCityData(1);
     var id = e.id;
     if (id) {
+      that.setData({
+        shipid:id
+      });
       // 初始化原数据
       wx.showLoading();
       wx.request({
@@ -222,13 +221,13 @@ Page({
   setDBSaveAddressId: function(data) {
     var retSelIdx = 0;
     for (var i = 0; i < commonCityData.cityData.length; i++) {
-      if (data.Pro == commonCityData.cityData[i].id) {
+      if (data.ProId == commonCityData.cityData[i].id) {
         this.data.selProvinceIndex = i;
         for (var j = 0; j < commonCityData.cityData[i].cityList.length; j++) {
-          if (data.City == commonCityData.cityData[i].cityList[j].id) {
+          if (data.CityId == commonCityData.cityData[i].cityList[j].id) {
             this.data.selCityIndex = j;
             for (var k = 0; k < commonCityData.cityData[i].cityList[j].districtList.length; k++) {
-              if (data.Dist == commonCityData.cityData[i].cityList[j].districtList[k].id) {
+              if (data.DistId == commonCityData.cityData[i].cityList[j].districtList[k].id) {
                 this.data.selDistrictIndex = k;
               }
             }

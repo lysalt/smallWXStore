@@ -81,6 +81,7 @@ Page({
       GoodsNumber:that.data.goodsNumber,
       GoodsMapList:that.data.goodsMapList,
       AmountTotle:that.data.allGoodsPrice,
+      YunPrice:that.data.yunPrice,
       Logistics:{},
       Status:0,
       Remark: remark
@@ -144,8 +145,7 @@ Page({
             totalScoreToPay: res.data.score,
             isNeedLogistics: res.data.isNeedLogistics,
             allGoodsPrice: res.data.amountTotle,
-            allGoodsAndYunPrice: res.data.amountLogistics + res.data.amountTotle,
-            yunPrice: res.data.amountLogistics
+            allGoodsAndYunPrice: that.data.yunPrice + res.data.amountTotle
           });
           that.getMyCoupons();
           return;
@@ -183,11 +183,24 @@ Page({
         UID:wx.getStorageSync('uid')
       },
       success: (res) =>{
-        console.log(JSON.stringify(res.data));
         if (res.data.data && res.data.data.length > 0) {
-          console.log(33);
+          var curAddr = res.data.data[0];
+          for (var i = 0; i < res.data.data.length; i++) {
+            if (res.data.data[i].Default == 1) {
+              curAddr = res.data.data[i];
+              break;
+            }
+          }
           that.setData({
-            curAddressData:res.data.data[0]
+            yunPrice:0
+          });
+          if (curAddr.Pro.indexOf('新疆') == 0) {
+            that.setData({
+              yunPrice:10
+            });
+          }
+          that.setData({
+            curAddressData:curAddr
           });
         }else{
           that.setData({
@@ -242,7 +255,8 @@ Page({
       //goodsJsonStr: goodsJsonStr,
       goodsMapList:goodsMapList,
       goodsNumber:allNumber,
-      allGoodsPrice:allGoodsPrice
+      allGoodsPrice:allGoodsPrice,
+      allGoodsAndYunPrice:allGoodsPrice + that.data.yunPrice
     });
     //that.createOrder();
   },
