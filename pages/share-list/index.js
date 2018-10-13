@@ -51,6 +51,7 @@ Page({
       success: (res) => {
         wx.hideLoading();
         if (res.data.data && res.data.data.length > 0) {
+          var allTips = 0;
           for (var i = 0; i < res.data.data.length; i++) {
             if (res.data.data[i].pic.indexOf('http') != 0) {
               res.data.data[i].pic = app.globalData.urlDomain + res.data.data[i].pic;
@@ -70,9 +71,12 @@ Page({
             if (res.data.data[i].Status == 5) {
               res.data.data[i].Status = '售后中';
             }
+            allTips += res.data.data[i].Tip;
           }
           that.setData({
-            goodsList: res.data.data
+            goodsList: res.data.data,
+            counts:res.data.data.length,
+            allTips:allTips
           });
         } else {
           this.setData({

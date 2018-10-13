@@ -24,6 +24,20 @@
     color:#e64340;
     border-bottom: 6rpx solid #e64340;
 }
+
+.sum-up{
+    width:100%;
+    height: 88rpx;
+    line-height: 88rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size:28rpx;
+    color:#999999;
+    border-top: 1rpx solid #eee;
+    background-color: #fff;
+}
+
 .status-box .status-label .red-dot{
     width: 16rpx;
     height: 16rpx;

@@ -8,7 +8,7 @@ App({
       }
     });
     wx.request({
-      url:app.globalData.urlDomain + '/mall/config',
+      url:that.globalData.urlDomain + '/mall/config',
       success:function(res) {
         wx.setStorageSync('mallName', res.data.MallName);
         that.globalData.order_reputation_score = res.data.Reputation;
@@ -24,7 +24,7 @@ App({
       return
     }
     wx.request({
-      url:app.globalData.urlDomain + '/mall/checkToken',
+      url:that.globalData.urlDomain + '/mall/checkToken',
       data: {
         Token: token,
         UID: uid

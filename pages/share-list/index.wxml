@@ -12,6 +12,9 @@
         <view class="text" hidden="{{currentType==2? false : true}}">暂无完成的订单</view>
     </view>
     <view hidden="{{goodsList ? false : true}}">
+        <view class="sum-up" hidden="{{currentType==2? false : true}}">
+            单数：{{counts}}，总佣金：¥{{allTips}}
+        </view>
         <view class="goods-list" wx:for-items="{{goodsList}}" wx:key="{{index}}">
             <view class="a-goods" bindtap="enterDetail"  data-id="{{item.goodsId}}" >
                 <view class="img-box">

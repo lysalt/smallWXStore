@@ -1,23 +1,33 @@
 <view class="container">
 	<view class="userinfo">
 		<image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
-		<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+		<view class="text-box">
+      <view class="arow">
+        <view class="name">{{ userInfo.nickName }}</view>
+        <view wx:if="{{!userMobile}}">
+          <button open-type="getPhoneNumber" size='mini' bindgetphonenumber="getPhoneNumber">绑定手机号码</button>
+        </view>
+      </view>
+      <view class="arow">
+        <view class="info">余额 {{balance}} 元， 佣金 {{apiUserInfoMap.Commision}} 个点</view>
+      </view>
+    </view>
 	</view>
   <view style="height:20rpx;background: #eee;width:100%;"></view>
   <view class="my-item" style='background:none;display:flex;flex-direction:column;height:auto;'>
-    <view>
+    <!--<view>
       余额 {{balance}} 元， 佣金 {{apiUserInfoMap.Commision}} 个点
-    </view><!--， 冻结 {{freeze}} 元-->
-    <view style='display:flex;padding-bottom:20rpx;'>
-      <button type='primary' style='width:100%;margin-right:70rpx;' bindtap="recharge">充值</button>
-      <button type='warn' style='width:100%;margin-right:70rpx;' bindtap="withdraw">提现</button>
-      <button type='default' style='width:100%;margin-right:70rpx;' bindtap="record">明细</button>
+    </view>， 冻结 {{freeze}} 元-->
+    <view style='display:flex;padding-bottom:20rpx;padding-top:20rpx;'>
+      <button type='primary' size='mini' style='width:100%;margin-right:70rpx;' bindtap="recharge">充值</button>
+      <button type='warn' size='mini' style='width:100%;margin-right:70rpx;' bindtap="withdraw">提现</button>
+      <button type='default' size='mini' style='width:100%;margin-right:70rpx;' bindtap="record">明细</button>
     </view>
   </view>
   <view class="my-item" style='background:none;display:flex;'>
     <view>当前积分 {{score}} </view>
-    <button wx:if="{{score_sign_continuous == 0}}" style='height:80rpx;margin-right:70rpx;' bindtap="scoresign">每日签到</button>
-    <button wx:if="{{score_sign_continuous > 0}}" disabled='true' style='height:80rpx;margin-right:70rpx;'>已连续{{score_sign_continuous}}天签到</button>
+    <button wx:if="{{score_sign_continuous == 0}}" size='mini' style='height:70rpx;margin-right:70rpx;' bindtap="scoresign">每日签到</button>
+    <button wx:if="{{score_sign_continuous > 0}}" disabled='true' style='height:70rpx;margin-right:70rpx;'>已连续{{score_sign_continuous}}天签到</button>
   </view>
   <view class="my-item">
     <navigator url="/pages/order-list/index" hover-class="navigator-hover">我的订单</navigator>
@@ -31,8 +41,12 @@
   <!-- <view class="my-item">
     <navigator url="/pages/mycoupons/index" hover-class="navigator-hover">我的优惠券</navigator>
   </view> -->
+  <view class="my-item">
+    <contact-button style="opacity:0;position:absolute;" type="default-dark"  session-from="weapp" size="27"></contact-button>
+    <view> 客服 </view>
+  </view>
   <view wx:if="{{!userMobile}}" class="my-item" style="border:none;padding-right:150rpx;width:auto;">
-    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">绑定手机号码</button>
+    <button open-type="getPhoneNumber" size='mini' bindgetphonenumber="getPhoneNumber">绑定手机号码</button>
   </view>
   <view wx:if="{{userMobile}}" class="my-item" style="border:none;padding-right:150rpx;width:auto;">
     {{userMobile}}

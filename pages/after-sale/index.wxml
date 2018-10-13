@@ -32,7 +32,7 @@
                 <view class="total-price" wx:if="{{item.Score <= 0}}">合计：¥ {{item.AmountReal}}</view>
                 <view class="total-price" wx:if="{{item.Score > 0}}">合计：¥ {{item.AmountReal}} + {{item.Score}} 积分</view>
                 <view class="btn topay-btn" hidden="{{item.Status==3? false : true}}" bindtap="toApply" data-id="{{item._id}}" data-money="{{item.AmountReal}}" data-score="{{item.score}}">申请售后</view>
-            </view>  
+            </view>
         </view>
 
     </view>

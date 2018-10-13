@@ -3,34 +3,61 @@
   overflow: hidden;
   overflow-y: hidden;
 }
+
 .userinfo {
-	display: flex;
-	flex-direction: column;
-	padding: 50rpx 0;
-	align-items: center;
-	background: #e85654;
   width: 750rpx;
+	display: flex;
+	padding: 10rpx 0;
+	background: #F2F2F2;
 }
 
-.userinfo-avatar {
+.userinfo .userinfo-avatar {
 	width: 160rpx;
 	height: 160rpx;
-	margin: 20rpx;
+	margin: 30rpx;
 	border-radius: 50%;
 }
 
-.userinfo-nickname {
-  margin-top: 20rpx;
-  color: #FFF;
+.userinfo .text-box{
+    width: 510rpx;
+    box-sizing: border-box;
+    padding-top: 50rpx;
 }
 
+.userinfo .text-box .arow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ }
+.userinfo .text-box .arow name{
+     width: 360rpx;
+     font-size:80rpx;
+     height: 74rpx;
+     color:#FFF;
+     line-height: 1.6;
+     overflow: hidden;
+ }
+ .userinfo .text-box .arow info{
+     width: 360rpx;
+     font-size:smaller;
+     height: 60rpx;
+     color:#FFF;
+     line-height: 1.3;
+     overflow: hidden;
+ }
+
+.userinfo .userinfo-nickname {
+  margin: 80rpx;
+  text-align: left; 
+  color: #FFF;
+}
 
 .version {
   width:100%;
   height: 40rpx;
 	line-height: 40rpx;
 	font-size: 24rpx;
-	text-align: center;  
+	text-align: center;
   padding: 40rpx;
 }
 
@@ -38,19 +65,19 @@
     width: 100%;
     background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 750rpx center;
     background-size: 16rpx auto,750rpx auto;
-    margin: 20rpx 0; 
+    margin: 10rpx 0 10rpx; 
     border-bottom: 1px solid #eee;
-    height: 100rpx;
-    line-height: 100rpx;
-    padding-left: 100rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    padding-left: 80rpx;
 }
 
 .about{
     width: 100%;
     background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 750rpx center;
     background-size: 16rpx auto,750rpx auto;
-    margin: 20rpx 0; 
+    margin: 20rpx 0;
     height: 80rpx;
     line-height: 80rpx;
-    padding-left: 100rpx;
+    padding-left: 80rpx;
 }
